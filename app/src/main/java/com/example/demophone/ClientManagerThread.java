@@ -31,10 +31,11 @@ public class ClientManagerThread extends Thread{
                 if (text != null) {
                     Log.d("Client Thread", text);
 //                    Log.d("c", text.split("\\+")[1]);
-                    if (text.contains("HR")) {
+                    if (text.contains("HeartR")) {
                         MainActivity.addEntry(MainActivity.hrChart, Double.parseDouble(text.split("\\+")[3]));
                     }
-                    else if (text.contains("SC")) {
+                    if (text.contains("StepC")) {
+
                         MainActivity.addEntry(MainActivity.scChart, Double.parseDouble(text.split("\\+")[3]));
                     }
                 }

@@ -25,6 +25,7 @@ import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     public void initChart(LineChart chart, String dataType){
 
         chart.setDrawGridBackground(true);
-        chart.setBackgroundColor(Color.BLACK);
+        chart.setBackgroundColor(Color.WHITE);
         chart.setGridBackgroundColor(Color.BLACK);
 
         // description text
@@ -154,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
             data.addDataSet(set);
         }
 
-
         data.addEntry(new Entry((float)set.getEntryCount(), (float)num), 0);
         data.notifyDataChanged();
 
@@ -164,8 +164,57 @@ public class MainActivity extends AppCompatActivity {
         chart.setVisibleXRangeMaximum(150);
         // this automatically refreshes the chart (calls invalidate())
         chart.moveViewTo(data.getEntryCount(), 50f, YAxis.AxisDependency.LEFT);
-
     }
+
+//    public static void accelAddEntry(LineChart chart, double num, String type) {
+//
+//        ArrayList<Entry> accelX = new ArrayList<>();
+//        ArrayList<Entry> accelY = new ArrayList<>();
+//        ArrayList<Entry> accelZ = new ArrayList<>();
+//
+//        LineData data = chart.getData();
+////        Log.d("main", chart.toString());
+//        if (data == null) {
+//            data = new LineData();
+//            chart.setData(data);
+//        }
+//
+//        ILineDataSet set = data.getDataSetByIndex(0);
+//        data.get
+//        // set.addEntry(...); // can be called as well
+//
+//        if (set == null) {
+//            set = createSet();
+//            data.addDataSet(set);
+//        }
+//
+//        if (type == "AX")
+//            accelX.add(new Entry((float)createSet().getEntryCount(), (float)num, 0);
+//        else if (type == "AY")
+//            accelY.add(new Entry((float)createSet().getEntryCount(), (float)num, 0);
+//        else
+//            accelZ.add(new Entry((float)createSet().getEntryCount(), (float)num, 0);
+//
+//        ILineDataSet set1 = new LineDataSet(accelX, "accelX");
+//        ILineDataSet set2 = new LineDataSet(accelY, "accelY");
+//        ILineDataSet set3 = new LineDataSet(accelZ, "accelZ");
+//
+//        data.addDataSet(set1);
+//        data.addDataSet(set2);
+//        data.addDataSet(set3);
+//
+//
+//        data.addEntry(new Entry((float)set.getEntryCount(), (float)num), 0);
+//        data.notifyDataChanged();
+//
+//        // let the chart know it's data has changed
+//        chart.notifyDataSetChanged();
+//
+//        chart.setVisibleXRangeMaximum(150);
+//        // this automatically refreshes the chart (calls invalidate())
+//        chart.moveViewTo(data.getEntryCount(), 50f, YAxis.AxisDependency.LEFT);
+//    }
+
 
     private static LineDataSet createSet() {
 
@@ -173,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
         set.setLineWidth(1f);
         set.setDrawValues(false);
         set.setValueTextColor(R.color.white);
-        set.setColor(R.color.white);
+        set.setColor(R.color.green);
         set.setMode(LineDataSet.Mode.LINEAR);
         set.setDrawCircles(false);
         set.setHighLightColor(Color.rgb(190, 190, 190));

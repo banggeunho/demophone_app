@@ -6,6 +6,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -26,13 +27,13 @@ public class ServerThread extends Thread{
     @Override
     public void run() {
         m_OutputList = new ArrayList<PrintWriter>();
-
-        int port = 5001;
+        Socket socket = null;
+        int port = 5002;
         try {
             ServerSocket server = new ServerSocket(port);
             Log.d("ServerThread", "서버가 실행됨.");
             while(true){
-                Socket socket = server.accept(); // server 대기상태. 클라이언트 접속 시 소켓 객체 리턴
+                socket = server.accept(); // server 대기상태. 클라이언트 접속 시 소켓 객체 리턴
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 //                is = new DataInputStream(socket.getInputStream());
@@ -48,10 +49,17 @@ public class ServerThread extends Thread{
                 Log.d("ServerThread", String.valueOf(m_OutputList.size()));
                 c_thread.start();
 
-
             }
-        } catch (Exception e){
+        } catch (Exception e){ // 대기중 에러
             e.printStackTrace();
+        } finally { // 소켓 종료시 에러
+                try {
+                   if (socket != null && socket.isClosed() == false) {
+                       socket.close();
+                   }
+                } catch (IOException e) {
+                       e.printStackTrace();
+                    }
+            }
         }
-    }
 }
